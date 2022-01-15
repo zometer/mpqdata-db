@@ -1,8 +1,74 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.mpqdata.db</groupId>
-  <artifactId>mpqdata-db</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>mpqdata-db</name>
-  <description>Database backing the mpqdata API/dashboard</description>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.mpqdata.db</groupId>
+	<artifactId>mpqdata-db</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>mpqdata-db</name>
+	<description>Database backing the mpqdata API/dashboard</description>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.bekioui.maven.plugin</groupId>
+				<artifactId>merge-maven-plugin</artifactId>
+				<version>1.2.0</version>
+				<executions>
+					<execution>
+						<id>merge-files</id>
+						<goals>
+							<goal>merge</goal>
+						</goals>
+						<configuration>
+							<merges>
+								<merge>
+									<target>${project.build.directory}/mpqdata-db-init.sql</target>
+									<sources>
+										<source>src/main/resources/sql/schema/MPQ_DATA.sql</source>
+									</sources>
+									<override>true</override>
+								</merge>
+							</merges>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											com.bekioui.maven.plugin
+										</groupId>
+										<artifactId>
+											merge-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.2.0,)
+										</versionRange>
+										<goals>
+											<goal>merge</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
