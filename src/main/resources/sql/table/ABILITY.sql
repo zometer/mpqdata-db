@@ -2,7 +2,7 @@
  * ABILITY - Character ability data.
  */
 
--- drop table mpq_data.ability ;
+drop table if exists mpq_data.ability ;
 
 create table mpq_data.ability (
 	ability_id varchar(100) primary key,

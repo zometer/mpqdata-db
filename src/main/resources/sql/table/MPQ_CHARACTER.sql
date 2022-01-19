@@ -2,7 +2,7 @@
  * MPQ_CHARACTER - Character identity data.
  */
 
--- drop table mpq_data.mpq_character ;
+drop table if exists mpq_data.mpq_character ;
 
 create table mpq_data.mpq_character (
 	mpq_character_id varchar(100) primary key,
