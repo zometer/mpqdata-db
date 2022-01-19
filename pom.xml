@@ -23,7 +23,7 @@
 						<configuration>
 							<merges>
 								<merge>
-									<target>${project.build.directory}/mpqdata-db-init.sql</target>
+									<target>${project.build.directory}/sql/mpqdata-db-init.sql</target>
 									<sources>
 										<source>src/main/resources/sql/schema/MPQ_DATA.sql</source>
 										<source>src/main/resources/sql/table/MPQ_CHARACTER.sql</source>
