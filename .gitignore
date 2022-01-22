@@ -1,5 +1,10 @@
 /target/
+
+# DBeaver
 .dbeaver/
+Scripts/
+.DS_Store
+
 
 target/
 pom.xml.tag
