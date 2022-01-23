@@ -25,9 +25,13 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Build Docker Image
+      env: 
+        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
            export $(grep -v '^#' target/maven-archiver/pom.properties | xargs -d '\n') && \
            env && \
-           docker build . --file Dockerfile --tag $GITHUB_ACTOR/$artifactId:$version 
+           docker build . --file Dockerfile --tag $GITHUB_ACTOR/$artifactId:$version && \
+           docker login --username $GITHUB_ACTOR --password $DOCKERHUB_TOKEN && \
+           docker image push $GITHUB_ACTOR/$artifactId:$version
            
       
