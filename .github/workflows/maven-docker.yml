@@ -25,5 +25,5 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: List files 
-      run: ls -la target/sql target/classes/META-INF/maven/*/*/
+      run: ls -la target/sql target/classes/
       
