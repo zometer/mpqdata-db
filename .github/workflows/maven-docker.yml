@@ -27,5 +27,5 @@ jobs:
     - name: Read Maven properties into the env 
       run: export $(grep -v '^#' target/maven-archiver/pom.properties | xargs -d '\n') && env 
     - name: Build Docker Image
-      run: docker build . --file Dockerfile --tag $artifact:$version
+      run: env && docker build . --file Dockerfile --tag $artifact:$version
       
