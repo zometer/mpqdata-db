@@ -30,6 +30,9 @@
 										<source>target/classes/sql/table/MPQ_CHARACTER.sql</source>
 										<source>target/classes/sql/table/ABILITY.sql</source>
 										<source>target/classes/sql/table/LEVEL_CONVERSION.sql</source>
+										<source>target/classes/sql/table/LOCALE_TEXT.sql</source>
+										<source>target/classes/sql/view/DISPLAY_CHARACTER_VW.sql</source>
+										<source>target/classes/sql/view/DISPLAY_ABILITY_VW.sql</source>
 										<source>target/classes/sql/load/load_level_conversion.sql</source>
 									</sources>
 									<override>true</override>
