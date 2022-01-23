@@ -28,6 +28,6 @@ jobs:
       run: |
            export $(grep -v '^#' target/maven-archiver/pom.properties | xargs -d '\n') && \
            env && \
-           docker build . --file Dockerfile --tag $artifact:$version 
+           docker build . --file Dockerfile --tag $GITHUB_ACTOR/$artifactId:$version 
            
       
