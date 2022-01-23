@@ -9,6 +9,7 @@ create table mpq_data.mpq_character (
 	name_key varchar(250) not null,
 	subtitle_key varchar(250) not null,
 	rarity integer not null,
+	character_bio_key varchar(250) not null, 
 	release_date timestamp
 );
 
