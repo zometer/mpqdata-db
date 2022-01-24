@@ -3,26 +3,73 @@
  */
 
 plugins {
-    id 'java'
-    id 'maven-publish'
+	id 'java'
+	id 'maven-publish'
 }
 
 repositories {
-    mavenLocal()
-    maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
-    }
+	mavenLocal()
+	maven {
+		url = uri('https://repo.maven.apache.org/maven2/')
+	}
 }
-
-group = 'com.mpqdata.db'
-version = '0.0.1-SNAPSHOT'
-description = 'mpqdata-db'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
+	publications {
+		maven(MavenPublication) {
+			from(components.java)
+		}
+	}
 }
+
+jar {
+	enabled = false
+}
+
+def files = files(
+	"$buildDir/resources/main/sql/schema/MPQ_DATA.sql",
+	"$buildDir/resources/main/sql/table/MPQ_CHARACTER.sql",
+	"$buildDir/resources/main/sql/table/ABILITY.sql",
+	"$buildDir/resources/main/sql/table/LEVEL_CONVERSION.sql",
+	"$buildDir/resources/main/sql/table/LOCALE_TEXT.sql",
+	"$buildDir/resources/main/sql/view/DISPLAY_CHARACTER_VW.sql",
+	"$buildDir/resources/main/sql/view/DISPLAY_ABILITY_VW.sql",
+	"$buildDir/resources/main/sql/load/load_level_conversion.sql"
+)
+
+task mkOutputDir {
+	mustRunAfter processResources
+	doLast {
+		new File("$buildDir/$sqlOutputDir/").mkdirs()
+	}
+}
+
+task concatSqlFiles() {
+	def outputFileName = "$buildDir/$sqlOutputDir/$sqlOutputFilename"
+	def sourceFiles = files;
+	dependsOn mkOutputDir
+
+	doLast {
+		def outputFile = new File(outputFileName)
+		outputFile.write('') // truncate output if needed
+		sourceFiles.each { f -> outputFile << f.text }
+	}
+}
+
+task copyDataFiles(type: Copy) {
+	dependsOn mkOutputDir
+	from "$buildDir/resources/main/data"
+	into "$buildDir/$sqlOutputDir/"
+}
+
+task buildZip(type: Zip) {
+	dependsOn concatSqlFiles,copyDataFiles
+	mustRunAfter classes
+
+	archiveFileName = "${project.name}-${version}.zip"
+	destinationDirectory = layout.buildDirectory.dir('libs')
+	from "$buildDir/$sqlOutputDir"
+	into "$sqlOutputDir"
+}
+tasks.assemble.dependsOn buildZip
+
