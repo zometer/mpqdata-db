@@ -21,15 +21,15 @@ $ ./mvnw package
 ````bash
 # run the Docker container
 $ docker run \
-		-d \
-		-p 5432:5432 \
-		-e POSTGRES_DB=mpqdata \
-		-e POSTGRES_USER=$POSTGRES_USER \
-		-e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
-		-e POSTGRES_POSTGRES_PASSWORD=$POSTGRES_ADMIN_PASSWORD \
-		-v $PWD/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-		--name mpqdata-db \
-		bitnami/postgresql
+	-d \
+	-p 5432:5432 \
+	-e POSTGRES_DB=mpqdata \
+	-e POSTGRES_USER=$POSTGRES_USER \
+	-e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
+	-e POSTGRES_POSTGRES_PASSWORD=$POSTGRES_ADMIN_PASSWORD \
+	-v $PWD/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+	--name mpqdata-db \
+	bitnami/postgresql
 ````
 
 ### Helm / Kubernetes
@@ -43,8 +43,8 @@ $ kubectl create configmap init-db-config-map  --namespace=mpqdata --from-file=t
 
 # Install the helm chart
 $ helm install mpqdata-db bitnami/postgresql \
-		--namespace mpqdata \
-		--set postgresqlPostgresPassword=$POSTGRES_ADMIN_PASSWORD,postgresqlDatabase=mpqdata,postgresqlUsername=$POSTGRES_USER,postgresqlPassword=$POSTGRES_PASSWORD,initdbScriptsConfigMap=init-db-config-map
+	--namespace mpqdata \
+	--set postgresqlPostgresPassword=$POSTGRES_ADMIN_PASSWORD,postgresqlDatabase=mpqdata,postgresqlUsername=$POSTGRES_USER,postgresqlPassword=$POSTGRES_PASSWORD,initdbScriptsConfigMap=init-db-config-map
 
 # You will need to forward the port for local access outside of the cluster.
 $ kubectl port-forward --namespace mpqdata svc/mpqdata-db-postgresql 5432:5432
