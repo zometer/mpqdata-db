@@ -6,6 +6,7 @@ build/
 !**/src/test/**
 
 /target/
+bin/
 
 # DBeaver
 .dbeaver/
