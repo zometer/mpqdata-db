@@ -8,8 +8,34 @@
 	<name>mpqdata-db</name>
 	<description>Database backing the mpqdata API/dashboard</description>
 
+	<properties>
+		<sqlOutputDir>docker-entrypoint-initdb.d</sqlOutputDir>
+	</properties>
+
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>copy-data-files</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>process-resources</phase>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${sqlOutputDir}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources/data/</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>com.bekioui.maven.plugin</groupId>
 				<artifactId>merge-maven-plugin</artifactId>
@@ -24,7 +50,7 @@
 						<configuration>
 							<merges>
 								<merge>
-									<target>${project.build.directory}/sql/mpqdata-db-init.sql</target>
+									<target>${project.build.directory}/${sqlOutputDir}/mpqdata-db-init.sql</target>
 									<sources>
 										<source>target/classes/sql/schema/MPQ_DATA.sql</source>
 										<source>target/classes/sql/table/MPQ_CHARACTER.sql</source>
