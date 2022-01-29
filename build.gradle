@@ -66,7 +66,7 @@ task buildZip(type: Zip) {
 	dependsOn concatSqlFiles,copyDataFiles
 	mustRunAfter classes
 
-	archiveFileName = "${project.name}-${version}.zip"
+	archiveFileName = "${project.name}-${project.version}.zip"
 	destinationDirectory = layout.buildDirectory.dir('libs')
 	from "$buildDir/$sqlOutputDir"
 	into "$sqlOutputDir"
