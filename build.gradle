@@ -32,6 +32,7 @@ def files = files(
 	"$buildDir/resources/main/sql/table/ABILITY.sql",
 	"$buildDir/resources/main/sql/table/LEVEL_CONVERSION.sql",
 	"$buildDir/resources/main/sql/table/LOCALE_TEXT.sql",
+	"$buildDir/resources/main/sql/table/PLAYER.sql",
 	"$buildDir/resources/main/sql/view/DISPLAY_CHARACTER_VW.sql",
 	"$buildDir/resources/main/sql/view/DISPLAY_ABILITY_VW.sql",
 	"$buildDir/resources/main/sql/load/load_level_conversion.sql"

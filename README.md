@@ -13,7 +13,7 @@ The project will create database initialization scripts and starting data files 
 
 ````bash
 # Build the schema creation and initialization scripts.
-$ ./mvnw package
+$ ./gradlew build
 ````
 
 ### Docker
@@ -22,6 +22,7 @@ $ ./mvnw package
 # run the Docker container
 $ docker run \
 	-d \
+	--alias mpqdata-db \
 	-p 5432:5432 \
 	-e POSTGRES_DB=mpqdata \
 	-e POSTGRES_USER=$POSTGRES_USER \
